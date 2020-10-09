@@ -1,0 +1,6 @@
+__pycache__/
+trust.json
+io_handler_gmail.config.json
+credentials.json
+token.pickle
+io_handler_daily_summary.json
