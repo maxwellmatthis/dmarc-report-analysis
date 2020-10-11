@@ -182,7 +182,7 @@ class Handler:
     def defaultBufferFile(self):
         reportsBufferHandler = open(REPORTS_BUFFER_FILE, 'w')
         json.dump({
-            'lastChecked': '1300000000',
+            'lastChecked': '1600000000',
             'fraud': {},
             'misconfiguration': {}
         }, reportsBufferHandler)
