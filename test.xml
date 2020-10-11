@@ -20,7 +20,7 @@
   </policy_published>
   <record>
     <row>
-      <source_ip>0000:0000:0000:00::0000</source_ip>
+      <source_ip>FE80:0000:0000:0000:0202:B3FF:FE1E:8329</source_ip>
       <count>3</count>
       <policy_evaluated>
         <disposition>none</disposition>

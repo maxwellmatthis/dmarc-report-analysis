@@ -1,6 +1,16 @@
+# python cache
 __pycache__/
-trust.json
+
+# config
 io_handler_gmail.config.json
+
+# credentials
 credentials.json
 token.pickle
-io_handler_daily_summary.json
+
+# data
+trust.json
+
+io_handler_buffer.json
+
+io_handler_gmail.json

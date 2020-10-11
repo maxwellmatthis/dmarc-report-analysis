@@ -4,7 +4,7 @@ import trust
 import traceback
 
 
-def analyse(xml):
+def analyze(xml):
     dom = minidom.parseString(xml)
     policyPublished = dom.getElementsByTagName('policy_published')[0]
     rootDomain = policyPublished.getElementsByTagName('domain')[
@@ -14,7 +14,7 @@ def analyse(xml):
     subdomainPolicy = policyPublished.getElementsByTagName('sp')[
         0].firstChild.data
     records = dom.getElementsByTagName('record')
-    analyses = []
+    analysis = []
     TrustChecker = trust.TrustChecker()
 
     try:
@@ -42,7 +42,7 @@ def analyse(xml):
             else:
                 category = 'fraud'
 
-            analyses.append({
+            analysis.append({
                 'source_ip': source_ip,
                 'header_from': header_from,
                 'trusted': trusted,
@@ -55,8 +55,7 @@ def analyse(xml):
     except:
         traceback.print_exception(*sys.exc_info())
 
-    TrustChecker.close()
-    return analyses
+    return analysis
 
 
 def printUsage():
@@ -68,6 +67,6 @@ if __name__ == "__main__":
     from banner import banner
     banner()
     if (len(sys.argv) == 2):
-        analyse(sys.argv[1])
+        analyze(sys.argv[1])
     else:
         printUsage()
