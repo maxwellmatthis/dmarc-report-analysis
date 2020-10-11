@@ -61,7 +61,7 @@ def analyse(xml):
 
 def printUsage():
     print('Incorrect Usage!')
-    print('Usage: python3 rua_analyser.py ["<feedback>...</feedback>"]')
+    print('Usage: python3 rua_analyzer.py ["<feedback>...</feedback>"]')
 
 
 if __name__ == "__main__":

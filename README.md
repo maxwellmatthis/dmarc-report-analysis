@@ -1,12 +1,12 @@
 # dmarc-report-analysis-and-trust-network
 ## About
-These scripts work together to detect mail server misconfigurations and fraud attempts based on DMARC reports.
+These scripts work together to detect mail server misconfigurations and fraud attempts based on DMARC reports and trusted hosts.
 ## Warning
 Carefully crafted XML may be able to break this program or help a hacker perform malicous actions. To prevent damages to the system I recommend running these scripts inside a docker container.
 [Official Python Docker Container >](https://hub.docker.com/_/python/)
-## rua_analyser.py
+## rua_analyzer.py
 ### About
-rua_analyser.py takes an XML string as an input, either from the command line or as a parameter in python. This input is parsed and a summary of each record within is returned as a Python list of dictionaries. 
+rua_analyzer.py takes an XML string as an input, either from the command line or as a parameter in python. This input is parsed and a summary of each record within is returned as a Python list of dictionaries. 
 The output will look something like this:
 ```bash
 [
@@ -37,8 +37,8 @@ The output will look something like this:
 ```python
 # python
 
-# import analyser
-from rua_analyser import analyse
+# import analyzer
+from rua_analyzer import analyse
 
 # analyse xml string
 result = analyse("<feedback>...</feedback>")
@@ -47,7 +47,7 @@ or
 ```bash
 # bash
 
-$ python3 rua_analyser.py ["<feedback>...</feedback>"]
+$ python3 rua_analyzer.py ["<feedback>...</feedback>"]
 ```
 ## trust.py
 ### About
@@ -76,14 +76,16 @@ or
 
 # add ip to domain
 $ python3 trust.py add [ip] [domain]
+
 # search for ip or domain
 $ python3 trust.py search [ip or domain]
+
 # remove ip from domain
 $ python3 trust.py remove [ip] [domain]
 ```
 ## cli.py
 ### About
-cli.py is a better way to use rua_analyser.py from the command line. 
+cli.py is a better way to use rua_analyzer.py from the command line. 
 ### Requirements
 - Python2.7 or later (python 3 recommended)
 ### Usage
@@ -111,6 +113,7 @@ io_handler_gmail.py uses the gmail API to autonomously get DMARC reports and sen
 
 # get new reports from inbox
 $ python3 io_handler_gmail.py get
+
 # send all collected report data and reset
 $ python3 io_handler_gmail.py report
 ```

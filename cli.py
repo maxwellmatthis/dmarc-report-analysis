@@ -1,5 +1,5 @@
 import sys
-from rua_analyser import analyse
+from rua_analyzer import analyse
 from banner import banner
 
 

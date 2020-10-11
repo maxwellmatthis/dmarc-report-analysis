@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 import os.path
 import json
-import rua_analyser
+import rua_analyzer
 from banner import banner
 import pickle
 from googleapiclient.discovery import build
@@ -108,7 +108,7 @@ class Handler:
 
                         file_data = base64.urlsafe_b64decode(
                             data.encode('UTF-8'))
-                        analysis = rua_analyser.analyse(file_data)
+                        analysis = rua_analyzer.analyse(file_data)
 
                         for record in analysis:
                             if (record['category'] == 'fraud'):
