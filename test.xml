@@ -32,11 +32,6 @@
       <header_from>entenquatsch.de</header_from>
     </identifiers>
     <auth_results>
-      <dkim>
-        <domain>entenquatsch.de</domain>
-        <result>pass</result>
-        <selector>google</selector>
-      </dkim>
       <spf>
         <domain>entenquatsch.de</domain>
         <result>fail</result>

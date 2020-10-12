@@ -28,10 +28,16 @@ def analyze(xml):
 
             trusted = TrustChecker.getIsTrusted(header_from, source_ip)
 
-            dkim_passed = auth_results.getElementsByTagName(
-                'dkim')[0].getElementsByTagName('result')[0].firstChild.data == 'pass'
-            spf_passed = auth_results.getElementsByTagName(
-                'spf')[0].getElementsByTagName('result')[0].firstChild.data == 'pass'
+            if (len(auth_results.getElementsByTagName('dkim')) >= 1):
+                dkim_passed = auth_results.getElementsByTagName(
+                    'dkim')[0].getElementsByTagName('result')[0].firstChild.data == 'pass'
+            else:
+                dkim_passed = 'not found'
+            if (len(auth_results.getElementsByTagName('spf')) >= 1):
+                spf_passed = auth_results.getElementsByTagName(
+                    'spf')[0].getElementsByTagName('result')[0].firstChild.data == 'pass'
+            else:
+                dkim_passed = 'not found'
 
             category = None
             if (trusted):
