@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
             if (sys.argv[1] == 'cli'):
                 from outx import out_cli
-                out_cli.print_out(records)
+                out_cli.printOut(records)
             elif (sys.argv[1] == 'gmail'):
                 from outx import out_gmail
                 out_gmail.send(records)

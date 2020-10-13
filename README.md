@@ -1,127 +1,67 @@
 # dmarc-report-analysis-and-trust-network
-## About
-These scripts work together to detect mail server misconfigurations and fraud attempts based on DMARC reports and trusted hosts.
 ## Warning
-Carefully crafted XML may be able to break this program or help a hacker perform malicous actions. To prevent damages to the system I recommend running these scripts inside a docker container.
-## rua_analyzer.py
+This prgram uses an XML parser that creates DOM objects. Malicious XML may be able to steal data, crash python or even your machine. Using a Docker container is recommended to prevent damages to your system.
+## add.py
 ### About
-rua_analyzer.py takes an XML string as an input, either from the command line or as a parameter in python. This input is parsed and a summary of each record within is returned as a Python list of dictionaries. 
-The output will look something like this:
+add.py helps with adding new data from a varienty of sources to the buffer. The package inx contains all input sources.
+### Requirements
+- Python2.7 or later (python 3 recommended)
+- scripts
+    - in_gmail.py
+### Usage
 ```bash
-[
-    {
-        'source_ip': 1.2.3.4,
-        'header_from': 'example.com',
-        'trusted': True,
-        'dkim_passed': True,
-        'spf_passed': False,
-        'policy': 'reject'
-    },
-    {
-        'source_ip': 4.3.2.1,
-        'header_from': 'example.com',
-        'trusted': False,
-        'dkim_passed': False,
-        'spf_passed': False,
-        'policy': 'none'
-    },
-    .
-    .
-    .
-]
+# bash
+
+$ python3 get.py [input type]
+# input types: gmail
 ```
+## select.py
+### About
+select.py filters records by query. The package outx contains all output methods.
+### Requirements
+- Python2.7 or later (python 3 recommended)
+- scripts
+    - out_cli.py
+    - out_gmail.py
+### Usage
+```bash
+# bash
+
+$ python3 select.py [output type] [optional: query, query...]
+# output types: cli, gmail
+# query syntax: key=value
+```
+## rua_parser.py
+### About
+rua_parser.py takes XML as input and outputs a list of dictionaries.
 ### Requirements
 - Python2.7 or later (python 3 recommended)
 ### Usage
 ```python
 # python
 
-# import analyzer
-from rua_analyzer import analyze
+# import "rua_parser.py" from package "parser"
+from parser import rua_parser
 
-# analyze xml string
-result = analyze("<feedback>...</feedback>")
+# parse XML-String
+parsed = rua_parser.parse('<feedback>...<feedback>')
 ```
 or
 ```bash
 # bash
 
-$ python3 rua_analyzer.py ["<feedback>...</feedback>"]
+$ python3 rua_parser.py ["<feedback>...<feedback>"]
 ```
-## trust.py
+## gmail_service.py
 ### About
-trust.py manages which ips are allowed/trusted to send emails from a certain domain. The script itself can add and remove trusted ips from domains and search for ips and domains.
+gmail_service.py builds a Gmail API Service Object and returns it to be used in another Gmail API script.
 ### Requirements
 - Python2.7 or later (python 3 recommended)
-### Usage
-```python
-# python
-
-# import trust
-import trust
-
-# create new TrustChecker
-TrustChecker = trust.TrustChecker()
-
-# verify if source_ip is trusted to access email for domain
-isTrusted = TrustChecker.getIsTrusted('example.com', '1.2.3.4')
-```
-or
-```bash
-# bash
-
-# add ip to domain
-$ python3 trust.py add [ip] [domain]
-
-# remove ip from domain
-$ python3 trust.py remove [ip] [domain]
-```
-## io_buffer_handler.py
-### About
-io_buffer_handler.py manages the buffer file, which contains all dmarc reports.
-### Requirements
-- Python2.7 or later (python 3 recommended)
-- rua_analyzer.py
-### Usage
-```python
-# python
-
-# import io_buffer_handler
-import io_buffer_handler
-
-# create new BufferHandler
-BufferHandler = io_buffer_handler.BufferHandler()
-
-# add data to file
-BufferHandler.add(analyze("<feedback>...</feedback>"))
-
-# read data from file
-contents = BufferHandler.read()
-```
-## cli.py
-### About
-cli.py is a better way to use rua_analyzer.py from the command line. 
-### Requirements
-- Python2.7 or later (python 3 recommended)
-### Usage
-```bash
-# bash
-
-# analyze
-python3 cli.py analyze [filepath]
-# show a report
-python3 cli.py report
-```
-## io_handler_gmail.py
-### About
-io_handler_gmail.py uses the gmail API to autonomously get DMARC reports and send reports listing all the fails.
-### Requirements
-- Python2.7 or later (python 3 recommended)
-- Google Mail account
-- credentials.json file from Gmail API
+- pip
 - google-api-python-client
 - google-auth-httplib2
 - google-auth-oauthlib
+- credentials.json file from Gmail API
 ```bash
 # bash
 
@@ -132,12 +72,61 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
 - Python Gmail API Quickstart: https://developers.google.com/gmail/api/quickstart/python
 - Gmail API: https://console.developers.google.com/apis/library/gmail.googleapis.com?q=gmail
 ### Usage
-```bash
-# bash
+```python
+# python
 
-# get new reports from inbox
-$ python3 io_handler_gmail.py get
+# import service builder
+from services import gmail_service
 
-# send all collected report data and reset
-$ python3 io_handler_gmail.py report
+# build service object
+service = gmail_service.buildService()
+```
+## in_gmail.py
+### About
+in_gmail.py fetches email attachments from the inbox and makes them readable.
+### Requirements
+- Python 2.7 or later (python 3 recommended)
+- scripts
+    - gmail_service.py
+### Usage
+```python
+# python
+
+# import gmail input
+from inx import in_gmail
+
+# get dictionary of files and contents
+filesContents = in_gmail.get()
+```
+## out_cli.py
+### About
+out_cli.py "pretty prints" lists of dictionaries containing DMARC record data.
+### Requirements
+- Python 2.7 or later (python 3 recommended)
+### Usage
+```python
+# python
+
+# import cli output
+from outx import out_cli
+
+# build service object
+out_cli.printOut(records)
+```
+## out_gmail.py
+### About
+out_gmail.py sends HTML versions of lists of dictionaries containing DMARC record data.
+### Requirements
+- Python 2.7 or later (python 3 recommended)
+- scripts
+    - gmail_service.py
+### Usage
+```python
+# python
+
+# import gmail output
+from outx import out_gmail
+
+# build service object
+out_gmail.send(records)
 ```
