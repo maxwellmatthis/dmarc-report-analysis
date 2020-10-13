@@ -12,3 +12,6 @@ token.pickle
 buffer/
 io_handler_gmail.json
 selection.txt
+
+# annoying osx file
+.DS_Store
