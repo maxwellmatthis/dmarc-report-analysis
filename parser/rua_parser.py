@@ -11,8 +11,11 @@ def parse(xml):
     ## root domain
     rootDomain = policy_published.getElementsByTagName('domain')[0].firstChild.data
     ## policy
-    rootPolicy = policy_published.getElementsByTagName('p')[0].firstChild.data
-    subdomainPolicy = policy_published.getElementsByTagName('sp')[0].firstChild.data
+    root_policy = policy_published.getElementsByTagName('p')[0].firstChild.data
+    subdomain_policies = policy_published.getElementsByTagName('sp')
+    if (len(subdomain_policies) >= 1 and hasattr(subdomain_policies[0], 'firstChild') and hasattr(subdomain_policies[0].firstChild, 'data')):
+        subdomain_policy = subdomain_policies[0].firstChild.data
+    else: subdomain_policy = 'not found'
 
     # records
     records = dom.getElementsByTagName('record')
@@ -47,7 +50,7 @@ def parse(xml):
 
             parsed.append({
                 # dmarc report policy
-                'policy': rootPolicy if (header_from == rootDomain) else subdomainPolicy,
+                'policy': root_policy if (header_from == rootDomain) else subdomain_policy,
 
                 # ip
                 'source_ip': source_ip,
@@ -76,9 +79,7 @@ def printUsage():
     print('Usage: python3 rua_parser.py ["<feedback>...</feedback>"]')
 
 if __name__ == "__main__":
-    from banner import banner
-    banner()
     if (len(sys.argv) == 2):
-        parse(sys.argv[1])
+        print(parse(sys.argv[1]))
     else:
         printUsage()

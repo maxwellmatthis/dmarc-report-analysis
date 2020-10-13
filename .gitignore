@@ -2,15 +2,13 @@
 __pycache__/
 
 # config
-io_handler_gmail.config.json
+io_handler_gmail.json
 
 # credentials
 credentials.json
 token.pickle
 
 # data
-trust.json
-
-io_handler_buffer.json
-
+buffer/
 io_handler_gmail.json
+selection.txt
