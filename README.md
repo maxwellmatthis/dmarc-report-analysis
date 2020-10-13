@@ -1,6 +1,7 @@
 # dmarc-report-analysis
 ## Warning
 This prgram uses an XML parser that creates DOM objects. Malicious XML may be able to steal data, crash python or even your machine. Using a Docker container is recommended to prevent damages to your system.
+Useful Reference: https://www.netsparker.com/blog/web-security/xxe-xml-external-entity-attacks/
 ## add.py
 ### About
 add.py helps with adding new data from a varienty of sources to the buffer. The package inx contains all input sources.
