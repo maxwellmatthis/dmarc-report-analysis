@@ -1,4 +1,4 @@
-# dmarc-report-analysis-and-trust-network
+# dmarc-report-analysis
 ## Warning
 This prgram uses an XML parser that creates DOM objects. Malicious XML may be able to steal data, crash python or even your machine. Using a Docker container is recommended to prevent damages to your system.
 ## add.py
