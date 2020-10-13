@@ -44,9 +44,15 @@ def parse(xml):
             ## dkim
             if (len(auth_results.getElementsByTagName('dkim')) >= 1): dkim_passed = auth_results.getElementsByTagName('dkim')[0].getElementsByTagName('result')[0].firstChild.data == 'pass'
             else: dkim_passed = 'not found'
+            ## dkim domain
+            if (len(auth_results.getElementsByTagName('dkim')) >= 1): dkim_domain = auth_results.getElementsByTagName('dkim')[0].getElementsByTagName('domain')[0].firstChild.data
+            else: dkim_domain = 'not found'
             ## spf
             if (len(auth_results.getElementsByTagName('spf')) >= 1): spf_passed = auth_results.getElementsByTagName('spf')[0].getElementsByTagName('result')[0].firstChild.data == 'pass'
             else: spf_passed = 'not found'
+            ## spf domain
+            if (len(auth_results.getElementsByTagName('spf')) >= 1): spf_domain = auth_results.getElementsByTagName('spf')[0].getElementsByTagName('domain')[0].firstChild.data
+            else: spf_domain = 'not found'
 
             parsed.append({
                 # dmarc report policy
@@ -64,7 +70,9 @@ def parse(xml):
 
                 # auth
                 'dkim_passed': dkim_passed,
+                'dkim_domain': dkim_domain,
                 'spf_passed': spf_passed,
+                'spf_domain': spf_domain,
 
                 # smart category
                 'category': False # TODO
