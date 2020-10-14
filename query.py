@@ -43,7 +43,7 @@ def loadBuffer():
     return parsed
 
 def printUsage():
-    print('Usage: python3 select.py [output type] [optional: query, query...]')
+    print('Usage: python3 query.py [output type] [optional: query, query...]')
     print('output types: cli, gmail')
     print('query syntax: key=value')
 

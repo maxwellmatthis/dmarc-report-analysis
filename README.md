@@ -16,9 +16,9 @@ add.py helps with adding new data from a varienty of sources to the buffer. The 
 $ python3 get.py [input type]
 # input types: gmail
 ```
-## select.py
+## query.py
 ### About
-select.py filters records by query. The package outx contains all output methods.
+query.py filters records by query. The package outx contains all output methods.
 ### Requirements
 - Python2.7 or later (python 3 recommended)
 - scripts
@@ -28,7 +28,7 @@ select.py filters records by query. The package outx contains all output methods
 ```bash
 # bash
 
-$ python3 select.py [output type] [optional: query, query...]
+$ python3 query.py [output type] [optional: query, query...]
 # output types: cli, gmail
 # query syntax: key=value
 ```

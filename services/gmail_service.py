@@ -37,3 +37,7 @@ def buildService():
 
     # return service object
     return service
+
+if __name__ == "__main__":
+    print('Attempting to build Gmail API Service...')
+    buildService()

@@ -34,7 +34,7 @@ def get():
                     for part in msg['payload']['parts']:
 
                         filename = part['filename'].split('.')
-                        if (filename[len(filename) - 1] in ['xml', 'gz', 'zip']):
+                        if (filename[len(filename) - 1] in ['gz', 'zip']):
 
                             if 'data' in part['body']:
                                 data = part['body']['data']
@@ -44,7 +44,7 @@ def get():
                                 data = att['data']
 
                             file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
-                            filesContents[filename] = file_data
+                            filesContents[part['filename']] = file_data
             checkedNow()
             return filesContents
     except:

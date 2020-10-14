@@ -5,10 +5,17 @@ import os.path
 BUFFER_FOLDER = 'buffer'
 
 def addToBuffer(filesContents):
-    for file in filesContents:
-        bufferFileHandler = open(os.path.join(BUFFER_FOLDER, file), 'w')
-        bufferFileHandler.write(filesContents[file])
-        bufferFileHandler.close()
+    if (not os.path.isdir(BUFFER_FOLDER)):
+        os.mkdir(BUFFER_FOLDER)
+
+    if (filesContents is not None and len(filesContents) >= 1):
+        for file in filesContents:
+            bufferFileHandler = open(os.path.join(BUFFER_FOLDER, file), 'wb')
+            bufferFileHandler.write(filesContents[file])
+            bufferFileHandler.close()
+        print('added ' + str(len(filesContents)) + ' ' + ('files' if (len(filesContents) > 1) else 'file') + ' to the buffer')
+    else:
+        print('no new files to add to the buffer')
 
 def printUsage():
     print('Usage: python3 get.py [input type]')
