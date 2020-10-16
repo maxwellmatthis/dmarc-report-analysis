@@ -15,7 +15,7 @@ add.py helps with adding new data from a varienty of sources to the buffer. The 
 ```bash
 # bash
 
-$ python3 get.py [input type]
+$ python3 add.py [input type]
 # input types: gmail
 ```
 ## query.py

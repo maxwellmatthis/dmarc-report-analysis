@@ -18,7 +18,7 @@ def addToBuffer(filesContents):
         print('no new files to add to the buffer')
 
 def printUsage():
-    print('Usage: python3 get.py [input type]')
+    print('Usage: python3 add.py [input type]')
     print('input types: gmail')
 
 if __name__ == "__main__":
