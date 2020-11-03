@@ -5,6 +5,18 @@ from parser import rua_parser
 
 BUFFER_FOLDER = 'buffer'
 
+def loadBuffer():
+    parsed = []
+
+    for file in os.listdir(BUFFER_FOLDER):
+        if (os.path.isfile(os.path.join(BUFFER_FOLDER, file)) and file.split('.')[len(file.split('.')) - 1] == 'xml'):
+            print(file)
+            bufferFileHandler = open(os.path.join(BUFFER_FOLDER, file), 'r')
+            parsed = parsed + rua_parser.parse(bufferFileHandler.read())
+            bufferFileHandler.close()
+
+    return parsed
+
 def query(params, records):
     lastRecords = records
     filteredRecords = []
@@ -30,17 +42,26 @@ def query(params, records):
 
     return lastRecords
 
-def loadBuffer():
-    parsed = []
+def distinct(records):
+    occurencesRecords = []
+    distinctRecords = []
 
-    for file in os.listdir(BUFFER_FOLDER):
-        if (os.path.isfile(os.path.join(BUFFER_FOLDER, file)) and file.split('.')[len(file.split('.')) - 1] == 'xml'):
-            print(file)
-            bufferFileHandler = open(os.path.join(BUFFER_FOLDER, file), 'r')
-            parsed = parsed + rua_parser.parse(bufferFileHandler.read())
-            bufferFileHandler.close()
+    for record in records:
+        if (record not in distinctRecords):
+            distinctRecords.append(record)
+            occurencesRecords.append(1)
+        else:
+            print('duplicate!')
+            index = distinctRecords.index(record)
+            occurencesRecords[index] = occurencesRecords[index] + 1
 
-    return parsed
+    sortedRecords = []
+
+    for record in distinctRecords:
+        record['occurences'] = occurencesRecords[distinctRecords.index(record)]
+        sortedRecords.append(record)
+
+    return sortedRecords
 
 def printUsage():
     print('Usage: python3 query.py [output type] [optional: query, query...]')
@@ -54,6 +75,7 @@ if __name__ == "__main__":
             records = loadBuffer()
             if (len(sys.argv) >= 3):
                 records = query(sys.argv[2:len(sys.argv)], records)
+                records = distinct(records)
 
             if (sys.argv[1] == 'cli'):
                 from outx import out_cli
