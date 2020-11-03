@@ -10,7 +10,6 @@ def loadBuffer():
 
     for file in os.listdir(BUFFER_FOLDER):
         if (os.path.isfile(os.path.join(BUFFER_FOLDER, file)) and file.split('.')[len(file.split('.')) - 1] == 'xml'):
-            print(file)
             bufferFileHandler = open(os.path.join(BUFFER_FOLDER, file), 'r')
             parsed = parsed + rua_parser.parse(bufferFileHandler.read())
             bufferFileHandler.close()
@@ -51,7 +50,6 @@ def distinct(records):
             distinctRecords.append(record)
             occurencesRecords.append(1)
         else:
-            print('duplicate!')
             index = distinctRecords.index(record)
             occurencesRecords[index] = occurencesRecords[index] + 1
 
