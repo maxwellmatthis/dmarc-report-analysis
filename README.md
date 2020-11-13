@@ -113,7 +113,7 @@ out_cli.py "pretty prints" lists of dictionaries containing DMARC record data.
 # import cli output
 from outx import out_cli
 
-# build service object
+# print out records
 out_cli.printOut(records)
 ```
 ## out_gmail.py
