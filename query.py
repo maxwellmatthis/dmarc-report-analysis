@@ -5,16 +5,17 @@ from parser import rua_parser
 
 BUFFER_FOLDER = 'buffer'
 
+
 def loadBuffer():
     parsed = []
 
     for file in os.listdir(BUFFER_FOLDER):
         if (os.path.isfile(os.path.join(BUFFER_FOLDER, file)) and file.split('.')[len(file.split('.')) - 1] == 'xml'):
-            bufferFileHandler = open(os.path.join(BUFFER_FOLDER, file), 'r')
-            parsed = parsed + rua_parser.parse(bufferFileHandler.read())
-            bufferFileHandler.close()
+            with open(os.path.join(BUFFER_FOLDER, file), 'r') as f:
+                parsed = parsed + rua_parser.parse(f.read())
 
     return parsed
+
 
 def query(params, records):
     lastRecords = records
@@ -41,6 +42,7 @@ def query(params, records):
 
     return lastRecords
 
+
 def distinct(records):
     occurencesRecords = []
     distinctRecords = []
@@ -61,10 +63,12 @@ def distinct(records):
 
     return sortedRecords
 
+
 def printUsage():
     print('Usage: python3 query.py [output type] [optional: query, query...]')
     print('output types: cli, gmail')
     print('query syntax: key=value')
+
 
 if __name__ == "__main__":
     banner()

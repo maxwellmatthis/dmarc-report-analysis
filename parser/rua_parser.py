@@ -73,9 +73,6 @@ def parse(xml):
                 'dkim_domain': dkim_domain,
                 'spf_passed': spf_passed,
                 'spf_domain': spf_domain,
-
-                # smart category
-                'category': False # TODO
             })
     except:
         traceback.print_exception(*sys.exc_info())
