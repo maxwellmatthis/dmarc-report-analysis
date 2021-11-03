@@ -1,6 +1,6 @@
 # dmarc-report-analysis
 ## Warning
-This prgram uses an XML parser (Minidom) that creates DOM objects. Minidom is one of the safer libraries but still vulnerable to some attacks. Malicious XML may be able to steal data, crash python or even your machine. Make sure this script does not have too many permissions.
+This program uses an XML parser (Minidom) that creates DOM objects. Minidom is one of the safer libraries but still vulnerable to some attacks. Malicious XML may be able to steal data, crash python or even your machine. Make sure this script does not have too many permissions.
 ### Useful References:
 - https://docs.python.org/3/library/xml.html#xml-vulnerabilities
 - https://www.netsparker.com/blog/web-security/xxe-xml-external-entity-attacks/
