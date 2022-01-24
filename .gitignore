@@ -1,5 +1,6 @@
 # python cache
 __pycache__/
+*.pyc
 
 # config
 io_handler_gmail.json
@@ -10,8 +11,7 @@ token.pickle
 
 # data
 buffer/
-io_handler_gmail.json
-selection.txt
+last-selection.txt
 
-# annoying osx file
+# annoying macOS file
 .DS_Store

@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import sys
 from xml.dom import minidom
 import traceback

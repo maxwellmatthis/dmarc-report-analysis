@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from banner import banner
 import sys
 import os.path
@@ -20,17 +22,19 @@ def addToBuffer(filesContents):
 
 
 def printUsage():
-    print('Usage: python3 add.py [input type]')
+    print('Usage: python3 add.py [input type] [options?]')
     print('input types: gmail')
+    print('options: batch_size=n')
 
 
 if __name__ == "__main__":
     banner()
-    if (len(sys.argv) == 2):
+    if (len(sys.argv) >= 2):
         filesContents = None
         if (sys.argv[1] == 'gmail'):
-            from inx import in_gmail
-            filesContents = in_gmail.get()
+            from inputs import in_gmail
+            filesContents = in_gmail.get(sys.argv[2] if str(
+                sys.argv[2]).split('=')[0] == 'batch_size' else str(100))
         else:
             print('Incorrect Usage!')
             printUsage()

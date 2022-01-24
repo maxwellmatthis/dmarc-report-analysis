@@ -1,7 +1,9 @@
+#!/usr/bin/python3
+
 from banner import banner
 import sys
 import os.path
-from parser import rua_parser
+from parsers import rua_parser
 
 BUFFER_FOLDER = 'buffer'
 
@@ -80,10 +82,10 @@ if __name__ == "__main__":
                 records = distinct(records)
 
             if (sys.argv[1] == 'cli'):
-                from outx import out_cli
+                from outputs import out_cli
                 out_cli.printOut(records)
             elif (sys.argv[1] == 'gmail'):
-                from outx import out_gmail
+                from outputs import out_gmail
                 out_gmail.send(records)
         else:
             print('Incorrect Usage!')
