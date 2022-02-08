@@ -10,8 +10,7 @@ token.pickle
 
 # data
 buffer/
-io_handler_gmail.json
 selection.txt
 
-# annoying osx file
+# annoying macOS file
 .DS_Store
